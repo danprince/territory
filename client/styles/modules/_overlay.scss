@@ -1,0 +1,40 @@
+@import '../layout';
+@import '../theme';
+
+.overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  background:rgba(0, 0, 0, 0.8);
+  width:100%;
+  height:100%;
+}
+
+.modal {
+  background:#fff;
+  width:600px;
+  margin:0 auto;
+  margin-top:1em;
+  padding:1em;
+
+  .title {
+    margin:0;
+  }
+
+  .room.pill {
+    -webkit-transition-duration:0.5s;
+    color:#ccc;
+    cursor:pointer;
+    margin-right:0.1em;
+  }
+
+  .room.pill:hover {
+    color:#555;
+  }
+
+  .room.pill:active {
+    -webkit-transition-duration:0.3s;
+    background:#ddd;
+    color:#c5c5c5;
+  }
+}

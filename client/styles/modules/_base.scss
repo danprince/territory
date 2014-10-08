@@ -1,0 +1,52 @@
+@import '../layout';
+@import '../theme';
+
+html, body {
+  background:#f5f5f5;
+}
+
+.sidebar {
+  position:absolute;
+  top:0;
+  right:0;
+  width:$sidebar-width;
+  border-left:solid 1px #eee;
+  background:#fff;
+  height:100%;
+  padding:1em;
+  box-sizing:border-box;
+
+  b.title {
+    margin-bottom:0.25em;
+    display:inline-block;
+  }
+}
+
+.container {
+  padding-right:$sidebar-width;
+}
+
+.pill {
+  // not ems to keep constant
+  border-radius:4px;
+  background:#eee;
+  min-width:1.25em;
+  text-align:center;
+  display:inline-block;
+  margin-bottom:4px;
+}
+
+.pill.contrast {
+  color:#fff;
+}
+
+.huge.pill {
+  font-size:3em;
+}
+
+.divider {
+  margin-top:0.5em;
+  margin-bottom:1em;
+  border-bottom:solid 1px #eee;
+}
+

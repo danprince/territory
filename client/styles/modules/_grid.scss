@@ -1,0 +1,18 @@
+@import '../layout';
+@import '../theme';
+
+$columns:12;
+
+@mixin grid($prefix) {
+  @for $i from 1 through $columns {
+    .#{$prefix}-#{$i}.columns {
+      width:percentage($i/$columns);
+    }
+  }
+}
+
+@include grid('small');
+
+.columns {
+  float:left;
+}
