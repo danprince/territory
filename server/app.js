@@ -3,10 +3,10 @@ var app = require('express')(),
     io = require('socket.io')(http),
     colors = require('colors');
 
-var Lobby = require('./modules/lobby'),
-    Room = require('./modules/room'),
-    Game = require('./modules/game'),
-    log = require('./modules/log');
+var Lobby = require('./lib/lobby'),
+    Room = require('./lib/room'),
+    Game = require('./lib/game'),
+    log = require('./lib/log');
 
 var lobby = new Lobby();
 

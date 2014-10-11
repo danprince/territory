@@ -1,6 +1,6 @@
 var should = require('should');
 
-var Board = require('../modules/board');
+var Board = require('../lib/board');
 
 var board = new Board(3);
 

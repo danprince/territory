@@ -1,7 +1,7 @@
 var should = require('should');
 
-var Board = require('../modules/board'),
-    Conditions = require('../modules/conditions');
+var Board = require('../lib/board'),
+    Conditions = require('../lib/conditions');
 
 var board = new Board(3);
 var conditions = new Conditions(board);
