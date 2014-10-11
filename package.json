@@ -4,8 +4,8 @@
   "description": "territory =========",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "mocha",
-    "server": "node server/app"
+    "test": "cd server && mocha",
+    "start": "node server/app"
   },
   "repository": {
     "type": "git",
