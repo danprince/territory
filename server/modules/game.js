@@ -84,7 +84,19 @@ Game.prototype.setTile = function(player, x, y) {
   }
 
   // player stuck?
-
+  // TODO remove duped code
+  if(this.ticks >= this.players.length) {
+    // if they are stuck, skip them
+    if(player.moves < 3 && this.conditions.stuck(this.player)) {
+      if(this.players.length > 2) {
+        this.nextTurn();
+        return;
+      } else {
+        this.over();
+        return;
+      }
+    }
+  }
 
   // end of turn?
   if(player.moves <= 0) {
