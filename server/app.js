@@ -5,7 +5,7 @@ var app = require('express')(),
 
 var Lobby = require('./modules/lobby'),
     Room = require('./modules/room'),
-    Game = require('./modules/game/game'),
+    Game = require('./modules/game'),
     log = require('./modules/log');
 
 var lobby = new Lobby();

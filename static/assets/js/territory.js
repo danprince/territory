@@ -25,7 +25,7 @@ angular.module('board', ['socket', 'util'])
         var tile = _.div('tile pill');
 
         tile.addEventListener('click', function() {
-          socket.emit('click', x, y);
+          socket.emit('player:act', x, y);
         });
 
         return tile;
@@ -48,6 +48,7 @@ angular.module('board', ['socket', 'util'])
           board.appendChild(row);
         }
 
+        element.innerHTML = '';
         element.append(board);
       };
 
@@ -62,11 +63,11 @@ angular.module('board', ['socket', 'util'])
       };
     },
     controller: function($scope, socket) {
-      socket.on('tile', function(x, y, value) {
+      socket.on('tile:update', function(x, y, value) {
         $scope.set(x, y, value);
       });
 
-      socket.on('init', function() {
+      socket.on('game:init', function() {
         $scope.render();
       });
     }
@@ -134,26 +135,22 @@ angular.module('game', ['socket'])
   $scope.ticks = 0;
   $scope.moves = 0;
 
-  socket.on('init', function(settings) {
+  socket.on('game:init', function(settings) {
     $scope.ready = true;
     $scope.players = settings.players;
     $scope.dimensions = settings.dimensions;
   });
 
-  socket.on('turn', function(turn, ticks) {
+  socket.on('game:turn', function(turn, ticks) {
     $scope.turn = turn;
     $scope.ticks = ticks;
   });
 
-  socket.on('score', function(player, score) {
-    $scope.players[player].score = score;
+  socket.on('player:update', function(player) {
+    $scope.players[player.id] = player;
   });
 
-  socket.on('moves', function(moves) {
-    $scope.moves = moves;
-  });
-
-  socket.on('over', function(winner) {
+  socket.on('game:over', function(winner) {
     $scope.over = true;
     $scope.winner = winner;
   });

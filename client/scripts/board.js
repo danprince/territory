@@ -15,7 +15,7 @@ angular.module('board', ['socket', 'util'])
         var tile = _.div('tile pill');
 
         tile.addEventListener('click', function() {
-          socket.emit('click', x, y);
+          socket.emit('player:act', x, y);
         });
 
         return tile;
@@ -38,6 +38,7 @@ angular.module('board', ['socket', 'util'])
           board.appendChild(row);
         }
 
+        element.innerHTML = '';
         element.append(board);
       };
 
@@ -52,11 +53,11 @@ angular.module('board', ['socket', 'util'])
       };
     },
     controller: function($scope, socket) {
-      socket.on('tile', function(x, y, value) {
+      socket.on('tile:update', function(x, y, value) {
         $scope.set(x, y, value);
       });
 
-      socket.on('init', function() {
+      socket.on('game:init', function() {
         $scope.render();
       });
     }

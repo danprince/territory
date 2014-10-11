@@ -10,26 +10,22 @@ angular.module('game', ['socket'])
   $scope.ticks = 0;
   $scope.moves = 0;
 
-  socket.on('init', function(settings) {
+  socket.on('game:init', function(settings) {
     $scope.ready = true;
     $scope.players = settings.players;
     $scope.dimensions = settings.dimensions;
   });
 
-  socket.on('turn', function(turn, ticks) {
+  socket.on('game:turn', function(turn, ticks) {
     $scope.turn = turn;
     $scope.ticks = ticks;
   });
 
-  socket.on('score', function(player, score) {
-    $scope.players[player].score = score;
+  socket.on('player:update', function(player) {
+    $scope.players[player.id] = player;
   });
 
-  socket.on('moves', function(moves) {
-    $scope.moves = moves;
-  });
-
-  socket.on('over', function(winner) {
+  socket.on('game:over', function(winner) {
     $scope.over = true;
     $scope.winner = winner;
   });

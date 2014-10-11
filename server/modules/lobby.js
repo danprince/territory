@@ -17,7 +17,7 @@ function Lobby() {
 
 // Add a new waiting player to this lobby
 Lobby.prototype.join = function(socket) {
-  message('Player connected'.green);
+  this.message('Player connected'.green);
   this.waiting.push(socket);
   this.updateWaiting();
   this.emit('player:join');
@@ -34,7 +34,6 @@ Lobby.prototype.join = function(socket) {
     this.tryRoom(roomSize);
     this.updateWaiting();
 
-    this.emit('player:size', roomSize);
     this.message('Player chose room', roomSize);
   }.bind(this));
 
@@ -44,7 +43,6 @@ Lobby.prototype.join = function(socket) {
     this.updateWaiting();
 
     this.message('A player disconnected'.red);
-    this.emit('player:disconnect');
   }.bind(this));
 };
 

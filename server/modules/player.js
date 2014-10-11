@@ -10,6 +10,15 @@ function Player(socket, settings) {
   this.lost = false;
 }
 
+// Send the player a message
+Player.prototype.message = function(type, message) {
+  this.socket.emit('game:message', {
+    type: type,
+    message: message,
+    time: Date.now()
+  });
+};
+
 // Update number of turns with score
 Player.prototype.refresh = function() {
   this.moves = this.score;

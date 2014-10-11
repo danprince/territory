@@ -1,4 +1,4 @@
-var Player = require('./game/player');
+var Player = require('./player');
 
 module.exports = Room;
 
@@ -16,12 +16,24 @@ Room.prototype.emit = function() {
 
   // send index with each message
   this.players.forEach(function(player, index) {
-    player.socket.emit.apply(player.socket, args.concat([index]));
+    player.socket.emit.apply(player.socket, args);
   });
 };
 
+// Attach an event handler to all players
 Room.prototype.on = function(event, handler) {
   this.players.forEach(function(player, index) {
-    player.socket.on(event, handler);
+    player.socket.on(event, handler.bind(player));
+  });
+};
+
+Room.prototype.all = function(handler) {
+  this.players.forEach(handler);
+};
+
+// Create JSON ready representation
+Room.prototype.toJSON = function() {
+  return this.players.map(function(player) {
+    return player.toJSON();
   });
 };

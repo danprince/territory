@@ -1,0 +1,16 @@
+{
+  "score": {
+    "tile_score": 1,
+    "tile_cost": 1,
+    "occupy_cost": 3,
+    "occupy_score": 1
+  },
+
+  "messages": {
+    "INVALID_LOCATION": "You can't play here!",
+    "OWN_TILE": "You already own this territory!",
+    "NOT_ENOUGH_TURNS": "You don't have enough turns. You need 3 to occupy an enemy territory.",
+    "NOT_YOUR_TURN": "It's not your turn!",
+    "GAME_START": "Starting the game!"
+  }
+}
