@@ -4,7 +4,8 @@
   "description": "territory =========",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "server": "node server/app"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "grunt-browserify": "^3.0.1",
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-exec": "^0.4.6",
     "grunt-http-server": "^1.0.0",
     "grunt-mocha-test": "^0.12.1",
     "grunt-notify": "^0.3.1",

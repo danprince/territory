@@ -121,6 +121,15 @@ module.exports = function(grunt) {
         },
         src: 'server/test/test.js'
       }
+    },
+
+    // Commands
+    // --------
+    // Executing shell commands
+    // from inside grunt
+    exec: {
+      app: 'ln -s ../static app/www',
+      server: 'node server/app'
     }
   };
 
@@ -131,7 +140,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-http-server');
   grunt.loadNpmTasks('grunt-notify');
+  grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-mocha-test');
+
+  grunt.registerTask('app', ['exec:app']);
+  grunt.registerTask('server', ['exec:server']);
 
   grunt.registerTask('dev', ['browserify:dev', 'sass:dev']);
   grunt.registerTask('prod', ['browserify:prod', 'sass:prod']);
