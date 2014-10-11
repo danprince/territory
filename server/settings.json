@@ -1,11 +1,4 @@
 {
-  "score": {
-    "tile_score": 1,
-    "tile_cost": 1,
-    "occupy_cost": 3,
-    "occupy_score": 1
-  },
-
   "messages": {
     "INVALID_LOCATION": "You can't play here!",
     "OWN_TILE": "You already own this territory!",

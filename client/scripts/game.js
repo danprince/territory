@@ -49,7 +49,6 @@ angular.module('game', ['socket'])
   return {
     restrict: 'A',
     controller: function($scope, socket) {
-      console.log('room choices');
       // limit to 2, 3 or 4 players
       $scope.choices = [2, 3, 4];
 

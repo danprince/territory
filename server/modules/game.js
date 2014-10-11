@@ -10,7 +10,7 @@ function Game(room, settings) {
   this.board = new Board(settings.size);
   this.room = room;
   this.players = room.players;
-  this.turn = -1;
+  this.turn = 0;
   this.ticks = 0;
   this.conditions = new Conditions(this.board);
 
@@ -31,6 +31,8 @@ Game.prototype.start = function() {
     player.socket.on('player:act', this.act.bind(this, player));
     player.socket.on('player:chat', this.chat.bind(this, player));
   }.bind(this));
+
+  this.room.emit('game:turn', this.turn);
 };
 
 // Advance to the next player
@@ -46,21 +48,24 @@ Game.prototype.nextTurn = function() {
     return;
   }
 
-  // if they are stuck, skip them
-  if(this.player.moves < 3 && this.conditions.stuck(this.player)) {
-    if(this.players.length > 2) {
-      this.nextTurn();
-      return;
-    } else {
-      console.log('Player stuck', this.conditions.stuck(this.player));
-      this.over();
-      return;
+  // ignore initial placement
+  if(this.ticks >= this.players.length) {
+    // if they are stuck, skip them
+    if(this.player.moves < 3 && this.conditions.stuck(this.player)) {
+      if(this.players.length > 2) {
+        this.nextTurn();
+        return;
+      } else {
+        console.log('Player', this.player.id, 'stuck', this.conditions.stuck(this.player));
+        this.over();
+        return;
+      }
     }
   }
 
   // let all players know
   this.room.emit('game:turn', this.turn);
-  this.room.emit('player:update', this.player);
+  this.room.emit('player:update', this.player.toJSON());
 };
 
 // Change the value of a tile
@@ -69,14 +74,17 @@ Game.prototype.setTile = function(player, x, y) {
   player.score += 1;
   this.board.set(x, y, player.id);
 
-  this.room.emit('player:update', player);
-  this.room.emit('tile:update', player.id, x, y);
+  this.room.emit('player:update', player.toJSON());
+  this.room.emit('tile:update', x, y, player.id);
 
   // game over?
   if(this.board.full()) {
     console.log('Board full');
     this.over();
   }
+
+  // player stuck?
+
 
   // end of turn?
   if(player.moves <= 0) {
@@ -86,15 +94,15 @@ Game.prototype.setTile = function(player, x, y) {
 
 // Action on a tile from a player
 Game.prototype.act = function(player, x, y) {
-
   if(player.id !== this.turn) {
     player.message('warning', settings.messages.NOT_YOUR_TURN);
+    return;
   }
 
   var target = this.players[this.board.at(x, y)];
   this.conditions.setCursor(player, x, y);
 
-  if(!this.conditions.neighbouring() && this.ticks > this.players.length) {
+  if(!this.conditions.neighbouring() && this.ticks >= this.players.length) {
     // invalid location
     player.message('warning', settings.messages.INVALID_LOCATION);
   } else {
@@ -107,7 +115,10 @@ Game.prototype.act = function(player, x, y) {
     else if(this.conditions.opponent()) {
       if(player.moves >= 3) {
         // incur penalty
-        player.moves -= 3;
+        player.moves -= 2;
+        target.score -= 1;
+        this.setTile(player, x, y);
+        this.room.emit('player:update', target.id, target.toJSON());
       } else {
         // need 3 to occupy
         player.message('warning', settings.messages.NOT_ENOUGH_TURNS);
@@ -129,6 +140,7 @@ Game.prototype.over = function() {
 // Message all other players
 Game.prototype.chat = function(player, message) {
   this.room.emit('game:chat', {
+    id: player.id,
     time: Date.now(),
     body: message
   });

@@ -18,7 +18,7 @@ io.on('connection', function(socket){
 // when the lobby creates a room
 lobby.on('room:create', function(room) {
   var game = new Game(room, {
-    size: 1 + room.players.length
+    size: 3 + room.players.length
   });
 });
 

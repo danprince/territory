@@ -83,7 +83,7 @@ describe('Conditions', function() {
 
   describe('#stuck', function() {
     it('Should calculate whether a player is stuck', function() {
-      //conditions.stuck({ id: 0}).should.equal(false);
+      conditions.stuck({ id: 0}).should.equal(false);
       conditions.stuck({ id: 1}).should.equal(true);
     });
   });

@@ -14,7 +14,7 @@ function Player(socket, settings) {
 Player.prototype.message = function(type, message) {
   this.socket.emit('game:message', {
     type: type,
-    message: message,
+    body: message,
     time: Date.now()
   });
 };

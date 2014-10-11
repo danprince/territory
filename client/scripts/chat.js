@@ -9,17 +9,17 @@ angular.module('chat', ['socket'])
 
       // send chat message
       $scope.send = function() {
-        socket.emit('chat', $scope.message);
+        socket.emit('player:chat', $scope.message);
         $scope.message = '';
       };
 
       // player messages
-      socket.on('chat', function(message) {
+      socket.on('game:chat', function(message) {
         $scope.messages.push(message);
       });
 
       // system messages
-      socket.on('message', function(message) {
+      socket.on('game:message', function(message) {
         $scope.messages.push(message);
       });
     },

@@ -86,17 +86,17 @@ angular.module('chat', ['socket'])
 
       // send chat message
       $scope.send = function() {
-        socket.emit('chat', $scope.message);
+        socket.emit('player:chat', $scope.message);
         $scope.message = '';
       };
 
       // player messages
-      socket.on('chat', function(message) {
+      socket.on('game:chat', function(message) {
         $scope.messages.push(message);
       });
 
       // system messages
-      socket.on('message', function(message) {
+      socket.on('game:message', function(message) {
         $scope.messages.push(message);
       });
     },
@@ -174,7 +174,6 @@ angular.module('game', ['socket'])
   return {
     restrict: 'A',
     controller: function($scope, socket) {
-      console.log('room choices');
       // limit to 2, 3 or 4 players
       $scope.choices = [2, 3, 4];
 

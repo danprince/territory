@@ -13,7 +13,7 @@
 <body ng-controller='GameController'>
   <div class='popover' ng-show='turn >= 0'>
     <span class='tiny pill' player='{{turn}}'></span>
-    has <b ng-bind='moves'></b> moves left.
+    has <b ng-bind='players[turn].moves'></b> moves left.
   </div>
 
   <div class='container' id='container'>
@@ -47,7 +47,6 @@
       <div class='divider'></div>
 
       <!-- ================================ -->
-      <h3>Select a game size</h3>
       <div room-choices></div>
       <div class='divider'></div>
       <!-- ================================ -->

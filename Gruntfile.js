@@ -66,6 +66,13 @@ module.exports = function(grunt) {
     // changes and executes other tasks
     // when they change.
     watch: {
+      server: {
+        files: 'server/modules/**/*.js',
+        tasks: ['mochaTest'],
+        options: {
+          livereload: true
+        }
+      },
       js: {
         files: 'client/scripts/**/*.js',
         tasks: ['browserify:dev'],
@@ -101,6 +108,19 @@ module.exports = function(grunt) {
         // This enables `watch` to work
         runInBackground: true
       }
+    },
+
+    // Unit Tests
+    // ----------
+    // Run the Mocha tests every time
+    // that grunt runs
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: 'server/test/test.js'
+      }
     }
   };
 
@@ -111,6 +131,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-http-server');
   grunt.loadNpmTasks('grunt-notify');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.registerTask('dev', ['browserify:dev', 'sass:dev']);
   grunt.registerTask('prod', ['browserify:prod', 'sass:prod']);
