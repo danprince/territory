@@ -16,6 +16,7 @@
   margin:0 auto;
   margin-top:1em;
   padding:1em;
+  border-top:solid 1em #34495e;
 
   .title {
     margin:0;
@@ -23,13 +24,28 @@
 
   .room.pill {
     -webkit-transition-duration:0.5s;
+    position:relative;
     color:#ccc;
     cursor:pointer;
     margin-right:0.1em;
+    margin-bottom:15px;
   }
 
   .room.pill:hover {
     color:#555;
+
+    &:after {
+      content: '';
+      display:inline-block;
+      position:absolute;
+      font-size:0.4em;
+      bottom:-15px;
+      left:50%;
+      margin-left:-10px;
+      border-bottom:solid 10px #aaa;
+      border-right:solid 10px transparent;
+      border-left:solid 10px transparent;
+    }
   }
 
   .room.pill:active {

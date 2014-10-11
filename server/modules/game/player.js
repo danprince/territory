@@ -4,23 +4,23 @@ function Player(socket, settings) {
   settings = settings || {};
 
   this.socket = socket;
-  this.name = settings.name || 'Player';
+  this.id = settings.id;
   this.score = 0;
-  this.turns = 0;
+  this.moves = 0;
   this.lost = false;
 }
 
 // Update number of turns with score
 Player.prototype.refresh = function() {
-  this.turns = this.score;
+  this.moves = this.score;
 };
 
-// Update the players score
-Player.prototype.score = function(value) {
-  this.score += (value || 1);
-
-  if(this.score <= 0) {
-    this.lost = true;
-  }
+// Convert to a JSON ready object
+Player.prototype.toJSON = function() {
+  return {
+    id: this.id,
+    score: this.score,
+    moves: this.moves,
+    lost: this.lost
+  };
 };
-

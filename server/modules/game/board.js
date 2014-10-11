@@ -38,20 +38,27 @@ Board.prototype.isWithin = function(x, y) {
 
 // Return an array of the values of all
 // neighbours surrounding a tile
-Board.prototype.neighbours = function(oX, oY) {
-  var neighbours = [];
+Board.prototype.neighbours = function(x, y) {
+  var dummy, row, above, below;
 
-  for(var x = oX - 1; x < oX + 1; x++) {
-    for(var y = oY - 1; y < oY + 1; y++) {
-      if(this.isWithin(x, y) && x !== oX && y !== oY) {
-        if(this.rows[x][y] > -1) {
-          neighbours.push(this.rows[x][y]);
-        }
-      }
-    }
-  }
+  dummy = [];
+  above = this.rows[x - 1] || dummy;
+  row = this.rows[x] || dummy;
+  below = this.rows[x + 1] || dummy;
 
-  return neighbours;
+  return [
+    above[y - 1],
+    above[y],
+    above[y + 1],
+    row[y - 1],
+    // ignore x, y
+    row[y + 1],
+    below[y - 1],
+    below[y],
+    below[y + 1]
+  ].filter(function(neighbour) {
+    return !isNaN(neighbour);
+  });
 };
 
 // Returns an array of coordinates of
@@ -61,10 +68,12 @@ Board.prototype.all = function(value) {
 
   for(var x = 0; x < this.dimensions.x; x++) {
     for(var y = 0; y < this.dimensions.y; y++) {
-      tiles.push({
-        x: x,
-        y: y
-      });
+      if(this.rows[x][y] === value) {
+        tiles.push({
+          x: x,
+          y: y
+        });
+      }
     }
   }
 
@@ -73,5 +82,5 @@ Board.prototype.all = function(value) {
 
 // Check whether the board is full
 Board.prototype.full = function() {
-  return this.all(-1).length > 0;
+  return this.all(-1).length <= 0;
 };

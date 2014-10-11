@@ -29,3 +29,6 @@ node_modules
 
 # sass cache
 .sass-cache
+
+# bower deps
+static/assets/vendor

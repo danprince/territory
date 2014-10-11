@@ -7,50 +7,64 @@
   <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:700,400'>
   <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js'></script>
   <script src='https://cdn.socket.io/socket.io-1.1.0.js'></script>
+  <script src='assets/vendor/socket.min.js'></script>
   <script src='assets/js/territory.js'></script>
 </head>
-<body>
+<body ng-controller='GameController'>
+  <div class='popover' ng-show='turn >= 0'>
+    <span class='tiny pill' player='{{turn}}'></span>
+    has <b ng-bind='moves'></b> moves left.
+  </div>
 
   <div class='container' id='container'>
-    Territory
+    <div board width='dimensions.x' height='dimensions.y'></div>
   </div>
 
   <div class='sidebar'>
     <b class='title'>Players</b>
-    <div class='player'>
-      <span class='pill contrast'>3</span>
-      <span class='name'>Dan Prince</span>
+    <div class='players'>
+      <a class='player' ng-repeat='player in players'>
+        <span class='medium pill contrast'
+          player='{{player.id}}'
+          ng-bind='player.score'>
+          0
+        </span>
+        <span class='name' ng-bind='player.name'></span>
+      </a>
     </div>
-    <div class='player'>
-      <span class='pill contrast'>4</span>
-      <span class='name'>Steven Tatlock</span>
-    </div>
-    <div class='player'>
-      <span class='pill contrast'>1</span>
-      <span class='name'>David Mitchell</span>
-    </div>
+    <span class='hint' ng-hide='players.length'>No players in this room!</span>
     <div class='divider'></div>
     <!-- ================================ -->
 
     <b class='title'>Chat</b>
-    <div class='chat'>
-      <div class='sub window'></div>
-    </div>
+    <div chat></div>
   </div>
 
-  <div id='overlay' class='overlay'>
+  <div id='overlay' class='overlay' ng-class='{hidden:ready}'>
     <div class='modal'>
       <h1 class='title'>Territory</h1>
       <span>Risk meets checkers.</span>
       <div class='divider'></div>
-      <!-- ================================ -->
 
+      <!-- ================================ -->
       <h3>Select a game size</h3>
-      <div id='room-buttons'></div>
+      <div room-choices></div>
       <div class='divider'></div>
       <!-- ================================ -->
 
-      <b class='pill' id='waiting-players'>0</b> players waiting.
+      <b class='pill' waiting-players></b> players waiting.
+    </div>
+  </div>
+
+  <div id='overlay' class='overlay' ng-class='{hidden:!over}'>
+    <div class='modal'>
+      <h1 class='title'>Game Over</h1>
+      <span class='huge contrast pill' player='{{winner.id}}'>!</span>
+      won with <b ng-bind='winner.score'></b> points!
+      <div class='divider'></div>
+
+      <!-- ================================ -->
+      <a href='/'>Return to lobby</a>
     </div>
   </div>
 

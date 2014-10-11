@@ -10,15 +10,15 @@ var Lobby = require('./modules/lobby'),
 
 var lobby = new Lobby();
 
-// new connections
+// new connections, forward to lobby
 io.on('connection', function(socket){
   lobby.join(socket);
 });
 
 // when the lobby creates a room
-lobby.on('room', function(room) {
+lobby.on('room:create', function(room) {
   var game = new Game(room, {
-    size: 4 + room.players.length
+    size: 1 + room.players.length
   });
 });
 

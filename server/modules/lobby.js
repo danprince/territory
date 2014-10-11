@@ -4,15 +4,13 @@ var EventEmitter = require('events').EventEmitter,
 
 module.exports = Lobby;
 
-// convenience logger
-var message = log.message.bind(log, '[Lobby]'.cyan);
-
 function Lobby() {
   this.__emitter__ = new EventEmitter();
   this.waiting = [];
 
   this.on = this.__emitter__.on;
   this.emit = this.__emitter__.emit;
+  this.message = log.message.bind(log, '[Lobby]'.cyan);
 
   this.rooms = [];
 }
@@ -22,10 +20,10 @@ Lobby.prototype.join = function(socket) {
   message('Player connected'.green);
   this.waiting.push(socket);
   this.updateWaiting();
+  this.emit('player:join');
 
   // player changes room size
   socket.on('size', function(roomSize) {
-    message('Player chose room', roomSize);
     // make sure the waiting list is an array
     if(!(this.rooms[roomSize] instanceof Array)) {
       this.rooms[roomSize] = [];
@@ -35,13 +33,18 @@ Lobby.prototype.join = function(socket) {
     this.rooms[roomSize].push(socket);
     this.tryRoom(roomSize);
     this.updateWaiting();
+
+    this.emit('player:size', roomSize);
+    this.message('Player chose room', roomSize);
   }.bind(this));
 
   // remove them if/when they disconnect
   socket.on('disconnect', function() {
     this.waiting.splice(this.waiting.indexOf(socket), 1);
     this.updateWaiting();
-    message('A player disconnected'.red);
+
+    this.message('A player disconnected'.red);
+    this.emit('player:disconnect');
   }.bind(this));
 };
 
@@ -52,7 +55,8 @@ Lobby.prototype.updateWaiting = function() {
   this.waiting.forEach(function(socket) {
     socket.emit('waiting', this.waiting.length);
   }.bind(this));
-  message(this.waiting.length, 'players waiting');
+
+  this.message(this.waiting.length, 'players waiting');
 };
 
 // Try to create a full room of this size
@@ -69,7 +73,7 @@ Lobby.prototype.tryRoom = function(number) {
       this.waiting.splice(this.waiting.indexOf(socket), 1);
     }.bind(this));
 
-    message('Creating new room for', (number + ' players').cyan);
-    this.emit('room', room);
+    this.message('Creating new room for', (number + ' players').cyan);
+    this.emit('room:create', room);
   }
 };

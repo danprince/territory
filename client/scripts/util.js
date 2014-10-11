@@ -1,18 +1,26 @@
-var util = {};
+angular.module('util', [])
 
-module.exports = util;
+.service('_', function() {
+  this.element = function(tag, className) {
+    var el = document.createElement(tag);
 
-util.element = function(tag, className) {
-  var el = document.createElement(tag);
+    if(className) {
+      el.setAttribute('class', className);
+    }
 
-  if(className) {
-    el.setAttribute('class', className);
-  }
+    return el;
+  };
 
-  return el;
-};
+  this.div = this.element.bind(null, 'div');
+  this.span = this.element.bind(null, 'span');
+  this.a = this.element.bind(null, 'a');
+})
 
-util.div = util.element.bind(null, 'div');
-util.span = util.element.bind(null, 'span');
-util.a = util.element.bind(null, 'a');
-util.byId = document.getElementById.bind(document);
+.filter('pretty', function() {
+  return function(time) {
+    var date = new Date(time);
+
+    return ('0' + date.getHours()).slice(-2) + ':' +
+            ('0' + date.getMinutes()).slice(-2);
+  };
+});

@@ -12,7 +12,7 @@ html, body {
   width: 320px;
   border-left: solid 1px #eee;
   background: #fff;
-  height: 100%;
+  min-height: 100%;
   padding: 1em;
   box-sizing: border-box; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000319}}
@@ -42,23 +42,91 @@ html, body {
   font-size: 3em; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000347}}
+.medium.pill {
+  font-size: 2em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000351}}
 .divider {
   margin-top: 0.5em;
   margin-bottom: 1em;
   border-bottom: solid 1px #eee; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000357}}
+input[type=text] {
+  border: solid 1px #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  padding: 0.4em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000364}}
+.hidden {
+  -webkit-transition-duration: 0.5s;
+  opacity: 0;
+  display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000370}}
+.pill[player='0'], .tile[player='0'] {
+  background: #2ecc71 !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000373}}
+.pill[player='1'], .tile[player='1'] {
+  background: #3498db !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000376}}
+.pill[player='2'], .tile[player='2'] {
+  background: #e67e22 !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000379}}
+.pill[player='3'], .tile[player='3'] {
+  background: #e74c3c !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000383}}
+.row {
+  overflow: hidden; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000387}}
+.tile {
+  -webkit-transition-duration: 0.3s;
+  height: 6em;
+  width: 6em;
+  background: #eee;
+  float: left;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\0000397}}
+  .tile:hover {
+    -webkit-transition-duration: 1s;
+    background: #ddd; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\00003103}}
+.hint {
+  color: #aaa; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\00003107}}
+.popover {
+  position: relative;
+  border: solid 1px #eee;
+  display: inline-block;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px;
+  height: 20px;
+  line-height: 20px;
+  padding-left: 1.65em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_base\.scss}line{font-family:\00003118}}
+  .popover .pill {
+    position: absolute;
+    min-height: 1.25em;
+    left: 4px; }
+
 /* Layout Variables */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_chat\.scss}line{font-family:\000036}}
 .chat .sub.window {
   overflow-y: scroll;
-  padding: 1em;
+  padding-right: 1em;
   height: 25em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_chat\.scss}line{font-family:\0000312}}
-.chat input[type=text] {
-  border-radius: 4px;
-  border: solid 1px #aaa;
-  padding: 0.25em 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_chat\.scss}line{font-family:\0000319}}
 .chat button {
   background: #fff;
   border: solid 1px #aaa;
@@ -67,6 +135,11 @@ html, body {
   padding: 0.25em 0.5em;
   cursor: pointer;
   text-transform: uppercase; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_chat\.scss}line{font-family:\0000322}}
+.chat input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.25em; }
 
 /* Layout Variables */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\000034}}
@@ -84,20 +157,35 @@ html, body {
   width: 600px;
   margin: 0 auto;
   margin-top: 1em;
-  padding: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000320}}
+  padding: 1em;
+  border-top: solid 1em #34495e; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000321}}
   .modal .title {
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000325}}
   .modal .room.pill {
     -webkit-transition-duration: 0.5s;
+    position: relative;
     color: #ccc;
     cursor: pointer;
-    margin-right: 0.1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000331}}
+    margin-right: 0.1em;
+    margin-bottom: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000334}}
   .modal .room.pill:hover {
     color: #555; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000337}}
+    .modal .room.pill:hover:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      font-size: 0.4em;
+      bottom: -15px;
+      left: 50%;
+      margin-left: -10px;
+      border-bottom: solid 10px #aaa;
+      border-right: solid 10px transparent;
+      border-left: solid 10px transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/home\/dan\/dev\/personal\/territory\/client\/styles\/modules\/_overlay\.scss}line{font-family:\0000351}}
   .modal .room.pill:active {
     -webkit-transition-duration: 0.3s;
     background: #ddd;
