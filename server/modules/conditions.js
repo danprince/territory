@@ -48,7 +48,9 @@ Conditions.prototype.target = function() {
   if((cached = this.__targetCache__[id])) {
     return cached;
   } else {
-    return this.board.at(this.cursor.x, this.cursor.y);
+    cached = this.board.at(this.cursor.x, this.cursor.y);
+    this.__targetCache__[id] = cached;
+    return cached;
   }
 };
 

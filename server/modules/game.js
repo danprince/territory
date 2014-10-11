@@ -30,6 +30,7 @@ Game.prototype.start = function() {
   this.room.all(function(player) {
     player.socket.on('player:act', this.act.bind(this, player));
     player.socket.on('player:chat', this.chat.bind(this, player));
+    player.socket.on('disconnect', this.disconnect.bind(this, player));
   }.bind(this));
 
   this.room.emit('game:turn', this.turn);
@@ -156,4 +157,16 @@ Game.prototype.chat = function(player, message) {
     time: Date.now(),
     body: message
   });
+};
+
+// Player disconnect
+Game.prototype.disconnect = function(player) {
+  if(this.players.length > 2) {
+    this.over();
+  } else {
+    // TODO only two left scenario
+    // needs to result in game over
+    player.lost = true;
+    this.room.emit('player:update', player.id, player);
+  }
 };
