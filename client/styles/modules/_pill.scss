@@ -1,0 +1,29 @@
+@import '../layout';
+@import '../theme';
+
+.pill.player-0, .pill[player="0"] { background:$palette-0 !important; };
+.pill.player-1, .pill[player="1"] { background:$palette-1 !important; };
+.pill.player-2, .pill[player="2"] { background:$palette-2 !important; };
+.pill.player-3, .pill[player="3"] { background:$palette-3 !important; };
+
+.pill {
+  @include rounded;
+  background:$tile-color;
+  display:inline-block;
+  text-align:center;
+  cursor:pointer;
+}
+
+.pill:hover {
+  background:$button-highlight;
+}
+
+.square.pill {
+  width:1em;
+  height:1em;
+}
+
+.lost.pill {
+  background:$background !important;
+  content:'!';
+}

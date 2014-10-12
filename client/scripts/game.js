@@ -1,24 +1,31 @@
 angular.module('game', ['socket'])
 
-.controller('GameController', function($scope, socket) {
+.controller('GameController', function($scope, $state, socket) {
   $scope.players = [];
-  $scope.ready = false;
-  $scope.over = false;
-  $scope.winner = -1;
-  $scope.dimensions = { x: 5, y: 5 };
-  $scope.turn = -1;
+  $scope.started = false;
+  $scope.over = true; // cheap redirect
+  $scope.dimensions = { x: 0, y: 0 };
+  $scope.turn = 0;
   $scope.ticks = 0;
-  $scope.moves = 0;
+  $scope.status = 'Game Started';
 
-  socket.on('game:init', function(settings) {
-    $scope.ready = true;
+  socket.on('game:init', function(settings, id) {
+    $scope.over = false;
+    $state.go('play');
+    $scope.started = true;
     $scope.players = settings.players;
     $scope.dimensions = settings.dimensions;
+    $scope.id = id;
+  });
+
+  socket.on('game:status', function(status) {
+    $scope.status = status;
   });
 
   socket.on('game:turn', function(turn, ticks) {
     $scope.turn = turn;
     $scope.ticks = ticks;
+    $scope.$apply();
   });
 
   socket.on('player:update', function(player) {
@@ -31,40 +38,6 @@ angular.module('game', ['socket'])
   });
 })
 
-.directive('chooseNickname', function() {
-  return {
-    restrict: 'A',
-    controller: function($scope, socket) {
-      $scope.name = '';
-
-      $scope.set = function() {
-        socket.emit('name', $scope.name);
-      };
-    },
-    template: "<input type='text' ng-model='name' ng-change='set()'/>"
-  };
-})
-
-.directive('roomChoices', function() {
-  return {
-    restrict: 'A',
-    controller: function($scope, socket) {
-      // limit to 2, 3 or 4 players
-      $scope.choices = [2, 3, 4];
-
-      $scope.choose = function(choice) {
-        socket.emit('size', choice);
-      };
-    },
-    template:
-    "<a class='huge room pill'" +
-      "ng-repeat='size in choices'" +
-      "ng-click='choose(size)'" +
-      "ng-bind='size'>" +
-    "</a>"
-  };
-})
-
 .directive('waitingPlayers', function() {
   return {
     restrict: 'A',
@@ -74,6 +47,8 @@ angular.module('game', ['socket'])
       socket.on('waiting', function(waiting) {
         $scope.waiting = waiting;
       });
+
+      socket.emit('waiting');
     },
     template: "<span ng-bind='waiting'></span>"
   };

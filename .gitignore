@@ -32,3 +32,4 @@ node_modules
 
 # bower deps
 static/assets/vendor
+app/www/vendor

@@ -2,62 +2,47 @@
 @import '../theme';
 
 .overlay {
-  position:absolute;
+  position:fixed;
   top:0;
   left:0;
-  //background:rgba(0, 0, 0, 0.1);
   width:100%;
   height:100%;
-  background:#f3f3f3;
+  background:rgba(0, 0, 0, 0.5);
 }
 
 .modal {
-  background:#fff;
-  width:600px;
-  max-width:90%;
-  margin:0 auto;
-  margin-top:1em;
+  @include rounded;
+  width:95%;
+  max-width:295px;
+  background:$background;
+  margin:3em auto;
   padding:1em;
-  border-radius:8px;
-  border:solid 1px #ddd;
-  border-bottom:solid 4px #ddd;
+  text-align:center;
 
-  .title {
+  h1 {
     margin:0;
   }
 
-  .room.pill {
-    -webkit-transition-duration:0.5s;
-    position:relative;
-    color:#ccc;
-    cursor:pointer;
-    margin-right:0.1em;
-    margin-bottom:15px;
-    background:#fff;
-    border:solid 1px #ddd;
-    border-bottom:solid 4px #ddd;
+  .pill:first-child {
+    font-size:3.2em;
+    margin-bottom:0.1em;
+    display:block;
   }
 
-  .room.pill:hover {
-    color:#555;
-
-    &:after {
-      content: '';
-      display:inline-block;
-      position:absolute;
-      font-size:0.4em;
-      bottom:-15px;
-      left:50%;
-      margin-left:-10px;
-      border-bottom:solid 10px #aaa;
-      border-right:solid 10px transparent;
-      border-left:solid 10px transparent;
-    }
+  .pill {
+    line-height:1em;
+    padding:0.4em;
   }
 
-  .room.pill:active {
-    -webkit-transition-duration:0.3s;
-    background:#ddd;
-    color:#c5c5c5;
+  .scores {
+    margin-top:0.4em;
+    margin-bottom:0.4em;
+    font-size:1em;
+    color:#fff;
+  }
+
+  button {
+    margin:0;
   }
 }
+

@@ -1,0 +1,83 @@
+@import '../layout';
+@import '../theme';
+
+.board {
+  .row {
+    overflow:hidden;
+    margin-bottom:0.1em;
+  }
+}
+
+.game {
+  padding:0.5em;
+
+  header {
+    font-size:1.5em;
+    line-height:1em;
+    color:#fff;
+    margin-bottom:0.4em;
+  }
+
+  header .pill {
+    padding:0.4em;
+    margin-right:0.1em;
+  }
+
+  .board {
+    font-size:5em;
+    margin-bottom:0.1em;
+    overflow:hidden;
+  }
+
+  .board .tile.pill {
+    display:block;
+    float:left;
+    clear:none;
+    margin-right:0.1em;
+  }
+
+  footer {
+    @include transition(0.3s);
+    position:absolute;
+    z-index:10;
+    top:100%;
+    margin-top:-2.1em;
+    left:0;
+    height:100%;
+    width:100%;
+    background:$background;
+
+    .status {
+      font-size:1.3em;
+      text-align:center;
+      padding:0.2em 0;
+      min-width:1px;
+      height:1.3em;
+    }
+  }
+
+  footer:hover, footer.open {
+    @include transition(0.3s);
+    top:5.8em;
+  }
+}
+
+.note {
+  @include rounded;
+  font-size:1.3em;
+  position:relative;
+  display:inline-block;
+  background:$background;
+  padding:0.6em;
+  padding-left:1.7em;
+  line-height:0.6em;
+
+  .pill {
+    position:absolute;
+    font-size:1.1em;
+    top:0.3em;
+    left:0.3em;
+  }
+}
+
+

@@ -3,10 +3,10 @@
 
 // Other modules
 @import 'modules/base';
+@import 'modules/pill';
+@import 'modules/button';
+@import 'modules/menu';
+@import 'modules/board';
 @import 'modules/chat';
 @import 'modules/overlay';
 
-
-html, body {
-  font-family:'Open Sans', sans-serif;
-}

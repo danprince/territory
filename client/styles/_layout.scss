@@ -1,2 +1,8 @@
 /* Layout Variables */
-$sidebar-width:320px;
+
+
+/* Reset */
+@mixin reset() {
+  padding:0;
+  margin:0;
+}

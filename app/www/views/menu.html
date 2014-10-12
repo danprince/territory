@@ -1,0 +1,38 @@
+<div class='screen' ng-controller='MenuController'>
+  <div class='view'>
+    <header>
+      <div class='strip' ng-class='{animated: chosenSize}'>
+        <div class='square pill player-0'></div>
+        <div class='square pill player-1'></div>
+        <div class='square pill player-2'></div>
+        <div class='square pill player-3'></div>
+      </div>
+      <h1 class='title' ng-hide='playing'>Territory</h1>
+    </header>
+    <div ui-view>
+      <nav class='menu'>
+        <div ng-hide='playing'>
+          <button ui-sref='menu.rules'>Rules</button>
+          <button ng-click='play()'>Play</button>
+          <button ui-sref='menu.about'>About</button>
+        </div>
+        <div ng-show='playing && chosenSize'>
+          <button>Waiting for Players...</button>
+        </div>
+        <div ng-show='playing && !chosenSize'>
+          <button>How many players?</button>
+          <button class='inline' ng-click='choose(2)'>2</button>
+          <button class='inline' ng-click='choose(3)'>3</button>
+          <button class='inline' ng-click='choose(4)'>4</button>
+        </div>
+        <div ng-show='playing'>
+          <button class='danger action' ng-click='reset()'>Cancel</button>
+          <button class='tabbed'>
+            <div class='tab' waiting-players></div>
+            players online
+          </button>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>

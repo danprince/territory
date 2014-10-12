@@ -19,6 +19,14 @@ Player.prototype.message = function(type, message) {
   });
 };
 
+// Send the player a status
+Player.prototype.status = function(type, message) {
+  this.socket.emit('game:status', {
+    type: type,
+    message: message
+  });
+};
+
 // Update number of turns with score
 Player.prototype.refresh = function() {
   this.moves = this.score;

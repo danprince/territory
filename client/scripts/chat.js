@@ -24,22 +24,19 @@ angular.module('chat', ['socket'])
       });
     },
     template:
-    "<div class='chat'>" +
-      "<div class='sub window'>" +
-        "<div class='message {{message.type}}'" +
-          "ng-repeat='message in messages'>" +
-          "<span class='tiny pill contrast'" +
-            "player='{{message.id}}'" +
-            "ng-show='{{message.id > -1}}'>" +
-            "@" +
-          "</span> " +
-          "<span class='hint' ng-show='message.time'" +
-            "ng-bind='message.time | pretty'></span> " +
-          "<span ng-bind='message.body'></span>" +
+    "<div class='sub window'>" +
+      "<div class='message' ng-repeat='message in messages'" +
+        "ng-class='{my:message.id === id}'>" +
+        "<div class='bubble'>" +
+          "<header>" +
+            "<div class='square pill player-{{message.id}}'></div>" +
+            "<span class='time' ng-bind='message.time | pretty'></span>" +
+          "</header>" +
+          "<p class='body' ng-bind='message.body'></p>" +
         "</div>" +
       "</div>" +
-      "<form ng-submit='send()'>" +
-        "<input type='text' ng-model='message'/>" +
+      "<form class='input' ng-submit='send()'>" +
+        "<input type='text' ng-model='message' placeholder='Chat...'/>" +
       "</form>" +
     "</div>"
   };

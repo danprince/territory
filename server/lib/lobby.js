@@ -37,6 +37,10 @@ Lobby.prototype.join = function(socket) {
     this.message('Player chose room', roomSize);
   }.bind(this));
 
+  socket.on('waiting', function() {
+    socket.emit('waiting', this.waiting.length);
+  }.bind(this));
+
   // remove them if/when they disconnect
   socket.on('disconnect', function() {
     this.waiting.splice(this.waiting.indexOf(socket), 1);

@@ -16,7 +16,7 @@ Room.prototype.emit = function() {
 
   // send index with each message
   this.players.forEach(function(player, index) {
-    player.socket.emit.apply(player.socket, args);
+    player.socket.emit.apply(player.socket, args.concat([index]));
   });
 };
 

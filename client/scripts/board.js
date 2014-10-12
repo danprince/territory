@@ -12,7 +12,7 @@ angular.module('board', ['socket', 'util'])
 
       // Create tile
       scope.createTile = function(x, y) {
-        var tile = _.div('tile pill');
+        var tile = _.div('square tile pill');
 
         tile.addEventListener('click', function() {
           socket.emit('player:act', x, y);
@@ -53,12 +53,14 @@ angular.module('board', ['socket', 'util'])
       };
     },
     controller: function($scope, socket) {
-      socket.on('tile:update', function(x, y, value) {
-        $scope.set(x, y, value);
+
+      // force a re-render
+      $scope.$watch('width', function() {
+        $scope.render();
       });
 
-      socket.on('game:init', function() {
-        $scope.render();
+      socket.on('tile:update', function(x, y, value) {
+        $scope.set(x, y, value);
       });
     }
   };

@@ -1,0 +1,74 @@
+/* Background Styles */
+$background:#23272a;
+$background-dark:#1d2022;
+$background-light:#252e34;
+
+/* Tile Styles */
+$tile-color:#30393f;
+
+/* Button Styles */
+$button-color:#252e33;
+$button-color-alt:#2e393f;
+$button-highlight:#364249;
+
+/* Text Styles */
+$text-color:#a3a3a3;
+$text-color-dark:#333;
+$text-highlight:#d2d2d2;
+$font-stack:'Source Sans Pro', sans-serif;
+
+/* Chat Styles */
+$chat-bubble:#dcdcdc;
+$chat-bubble-text:#535353;
+$chat-bubble-alt:$button-color;
+$chat-bubble-alt-text:#aaa;
+$chat-time:#727272;
+
+/* Color Palette */
+$palette-0:#226666;
+$palette-1:#2d882d;
+$palette-2:#aa6c39;
+$palette-3:#aa3939;
+
+/* Rounded Edges */
+@mixin rounded() {
+  $round:4px;
+  -webkit-border-radius:$round;
+  -o-border-radius:$round;
+  -moz-border-radius:$round;
+  border-radius:$round;
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
+  }
+  @-ms-keyframes $animation-name {
+    @content;
+  }
+  @-o-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+@mixin transition($time) {
+  -webkit-transition-duration:$time;
+  -moz-transition-duration:$time;
+  -ms-transition-duration:$time;
+  -o-transition-duration:$time;
+  transition-duration:$time;
+}

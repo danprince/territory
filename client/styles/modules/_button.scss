@@ -1,0 +1,56 @@
+@import '../layout';
+@import '../theme';
+
+button {
+  @include rounded;
+  font-family:$font-stack;
+  background:$button-color;
+  color:$text-color;
+  border:none;
+  font-size:1.5em;
+  font-weight:300;
+  outline:none;
+}
+
+button:hover {
+  background:$button-highlight;
+  cursor:pointer;
+}
+
+button.tabbed {
+  background:$button-color-alt;
+  position:relative;
+  overflow:hidden;
+
+  .tab {
+    padding:0 0.5em;
+    position:absolute;
+    left:0;
+    top:0;
+    line-height:2.2em;
+    background:$button-color;
+    height:100%;
+  }
+}
+
+button.action.danger {
+  background:$palette-3;
+  color:#da9191;
+}
+
+button.action.success {
+  background:$palette-1;
+  color:#89bb89;
+}
+
+button.action.primary {
+  background:$palette-0;
+  color:#77a3a3;
+}
+
+button.action.warning {
+  background:$palette-2;
+  color:#ccb099;
+}
+
+

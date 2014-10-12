@@ -128,8 +128,7 @@ module.exports = function(grunt) {
     // Executing shell commands
     // from inside grunt
     exec: {
-      app: 'ln -s ../static app/www',
-      server: 'node server/app'
+      phonegap: 'cp static/* app/www -R && cd app && phonegap remote build android'
     }
   };
 
@@ -143,8 +142,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-mocha-test');
 
-  grunt.registerTask('app', ['exec:app']);
-  grunt.registerTask('server', ['exec:server']);
+  grunt.registerTask('phonegap', ['exec:phonegap']);
 
   grunt.registerTask('dev', ['browserify:dev', 'sass:dev']);
   grunt.registerTask('prod', ['browserify:prod', 'sass:prod']);

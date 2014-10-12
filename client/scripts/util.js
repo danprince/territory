@@ -23,4 +23,14 @@ angular.module('util', [])
     return ('0' + date.getHours()).slice(-2) + ':' +
             ('0' + date.getMinutes()).slice(-2);
   };
+})
+
+.filter('sortBy', function() {
+  return function(array, key) {
+    // Use slice to stop modifying the array
+    // in place
+    return array.slice().sort(function(a, b) {
+      return a[key] - b[key];
+    });
+  };
 });

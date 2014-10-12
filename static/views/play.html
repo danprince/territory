@@ -1,0 +1,43 @@
+<div class='game'>
+
+  <header>
+    <div class='square pill'
+      player='{{player.id}}'
+      ng-bind='player.score'
+      ng-class='{lost: player.lost}'
+      ng-repeat='player in players'></div>
+  </header>
+
+  <div board width='dimensions.x' height='dimensions.y' ng-show='started'></div>
+  <div class='note'>
+    <div class='square pill' player='{{turn}}'></div>
+    has <b ng-bind='{{turn}}'></b> turns left.
+  </div>
+
+  <footer>
+    <div class='status {{status.type}}' ng-bind='status.message'></div>
+    <div class='chat'>
+      <div chat></div>
+    </div>
+  </footer>
+
+  <div class='overlay' ng-show='over'>
+    <div class='modal'>
+      <h1>Game Over</h1>
+      <center class='scores'>
+        <div class='square pill'
+          ng-repeat='player in players | sortBy:"score"'
+          player='{{player.id}}'
+          ng-bind='player.score'>
+        </div>
+      </center>
+      <nav class='menu'>
+        <a href='/'>
+          <button>Continue</button>
+        </a>
+      </nav>
+
+    </div>
+  </div>
+</div>
+

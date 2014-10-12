@@ -108,7 +108,7 @@ Game.prototype.setTile = function(player, x, y) {
 // Action on a tile from a player
 Game.prototype.act = function(player, x, y) {
   if(player.id !== this.turn) {
-    player.message('warning', settings.messages.NOT_YOUR_TURN);
+    player.status('warning', settings.messages.NOT_YOUR_TURN);
     return;
   }
 
@@ -117,7 +117,7 @@ Game.prototype.act = function(player, x, y) {
 
   if(!this.conditions.neighbouring() && this.ticks >= this.players.length) {
     // invalid location
-    player.message('warning', settings.messages.INVALID_LOCATION);
+    player.status('warning', settings.messages.INVALID_LOCATION);
   } else {
 
     if(this.conditions.open()) {
@@ -134,13 +134,13 @@ Game.prototype.act = function(player, x, y) {
         this.room.emit('player:update', target.id, target.toJSON());
       } else {
         // need 3 to occupy
-        player.message('warning', settings.messages.NOT_ENOUGH_TURNS);
+        player.status('warning', settings.messages.NOT_ENOUGH_TURNS);
       }
     }
 
     else if(this.conditions.own()) {
       // you already own this tile
-      player.socket.emit('game:message', settings.messages.ALREADY_OWN);
+      player.status('warning', settings.messages.ALREADY_OWN);
     }
   }
 };
@@ -161,12 +161,24 @@ Game.prototype.chat = function(player, message) {
 
 // Player disconnect
 Game.prototype.disconnect = function(player) {
-  if(this.players.length > 2) {
+  var remaining = 0;
+
+  if(this.players.length <= 2) {
     this.over();
   } else {
-    // TODO only two left scenario
-    // needs to result in game over
     player.lost = true;
     this.room.emit('player:update', player.id, player);
+
+    // if all but one players have disconnected/last
+    for(var i = 0; i < this.players.length; i++) {
+      if(!this.players[i].lost) {
+        remaining++;
+      }
+    }
+
+    // end the game
+    if(remaining <= 1) {
+      this.over();
+    }
   }
 };
